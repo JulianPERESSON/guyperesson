@@ -1,0 +1,9 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
+import { DemoArtwork } from "@/components/ui/demo-artwork";
+import { collections } from "@/data/collections";
+
+export const metadata: Metadata = { title: "Collections", description: "Explorez des ensembles d’objets réunis par atelier, marque, thème, territoire ou période." };
+export default function CollectionsPage(){return <><section className="border-b hairline bg-[#e9dfd0]/45"><div className="container-page py-10 sm:py-16"><Breadcrumb items={[{label:"Collections"}]} /><p className="eyebrow mt-10 text-[#a35f3f]">Ensembles documentés</p><h1 className="mt-4 max-w-4xl text-balance text-5xl leading-tight sm:text-7xl">Des histoires à parcourir en série.</h1><p className="mt-6 max-w-2xl leading-7 text-stone-600">Atelier, constructeur, ville ou époque : chaque collection éclaire les objets par les liens qui les unissent.</p></div></section><section className="container-page section-space"><div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">{collections.map((collection,index)=><Link key={collection.id} href={`/collections/${collection.slug}`} className="group surface overflow-hidden"><DemoArtwork kind="COLLECTION" title={collection.name} className={`aspect-[4/3] ${index === 0 ? "md:aspect-[16/10]" : ""}`} priorityLabel={`${collection.productIds.length} objets`}/><div className="p-6"><p className="eyebrow text-[#a35f3f]">{collection.period}</p><h2 className="mt-3 text-3xl leading-tight">{collection.name}</h2><p className="mt-3 line-clamp-3 text-sm leading-6 text-stone-600">{collection.description}</p><span className="mt-6 inline-flex items-center gap-2 text-xs font-bold text-[#173f35]">Découvrir la collection <ArrowRight size={14} className="transition group-hover:translate-x-1"/></span></div></Link>)}</div></section></>}

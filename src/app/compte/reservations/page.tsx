@@ -1,0 +1,3 @@
+import Link from "next/link";
+import { UserRoundCheck } from "lucide-react";
+export default function ReservationsPage(){return <div><p className="eyebrow text-[#a35f3f]">Suivi</p><h2 className="mt-3 text-3xl">Mes réservations</h2><div className="surface mt-6 p-10 text-center"><UserRoundCheck className="mx-auto text-stone-300" size={38}/><p className="mt-4 text-lg font-bold">Aucune réservation en cours</p><p className="mt-2 text-sm text-stone-500">Vos demandes acceptées et leur date d’expiration apparaîtront ici.</p><Link className="btn-secondary mt-6" href="/objets-rares">Voir les objets rares</Link></div></div>}

@@ -1,0 +1,6 @@
+"use client";
+import Link from "next/link";
+import { X } from "lucide-react";
+import { useEffect, useState } from "react";
+const KEY="linventaire-cookie-choice-v1";
+export function CookieNotice(){const[visible,setVisible]=useState(false);useEffect(()=>{const frame=requestAnimationFrame(()=>setVisible(!localStorage.getItem(KEY)));return()=>cancelAnimationFrame(frame)},[]);if(!visible)return null;const close=()=>{localStorage.setItem(KEY,"necessary");setVisible(false)};return <aside className="fixed inset-x-3 bottom-3 z-[80] mx-auto max-w-2xl rounded-2xl border border-white/10 bg-[#18221e] p-5 text-white shadow-2xl sm:flex sm:items-center sm:gap-6" aria-label="Information sur les cookies"><button onClick={close} className="absolute right-2 top-2 rounded-full p-2 text-white/60 hover:bg-white/10" aria-label="Fermer"><X size={16}/></button><div className="pr-7"><p className="text-sm font-bold">Votre panier reste dans votre navigateur</p><p className="mt-1 text-xs leading-5 text-white/60">Nous utilisons uniquement les stockages nécessaires dans cette démonstration. Aucun suivi publicitaire n’est activé. <Link className="underline" href="/cookies">En savoir plus</Link></p></div><button onClick={close} className="mt-4 min-h-10 shrink-0 rounded-full bg-white px-4 text-xs font-bold text-[#173f35] sm:mt-0">J’ai compris</button></aside>}

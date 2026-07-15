@@ -1,0 +1,11 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { ProductGrid } from "@/components/catalogue/product-grid";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
+import { DemoArtwork } from "@/components/ui/demo-artwork";
+import { collections, collectionBySlug } from "@/data/collections";
+import { getProductsByCollection } from "@/data/products";
+
+export function generateStaticParams(){return collections.map(({slug})=>({slug}));}
+export async function generateMetadata({params}:{params:Promise<{slug:string}>}):Promise<Metadata>{const {slug}=await params;const collection=collectionBySlug.get(slug);return collection?{title:collection.name,description:collection.description}:{title:"Collection introuvable"};}
+export default async function CollectionPage({params}:{params:Promise<{slug:string}>}){const {slug}=await params;const collection=collectionBySlug.get(slug);if(!collection)notFound();const items=getProductsByCollection(slug);return <><section className="border-b hairline bg-[#e9dfd0]/45"><div className="container-page py-8"><Breadcrumb items={[{label:"Collections",href:"/collections"},{label:collection.name}]} /><div className="grid items-center gap-10 py-10 lg:grid-cols-[1fr_.8fr]"><div><p className="eyebrow text-[#a35f3f]">{collection.period} · {items.length} objets</p><h1 className="mt-5 text-balance text-5xl leading-tight sm:text-7xl">{collection.name}</h1><p className="mt-6 max-w-2xl text-base leading-8 text-stone-600">{collection.description}</p><dl className="mt-8 grid max-w-xl grid-cols-2 gap-5 border-t hairline pt-6 text-sm"><div><dt className="text-stone-500">Période</dt><dd className="mt-1 font-semibold">{collection.period}</dd></div><div><dt className="text-stone-500">Origine</dt><dd className="mt-1 font-semibold">{[collection.country,collection.region].filter(Boolean).join(", ")||"Plusieurs origines"}</dd></div></dl></div><DemoArtwork kind="COLLECTION" title={collection.name} className="aspect-[5/3] rounded-[1.75rem] lg:aspect-[4/3]" priorityLabel={`${items.length} objets documentés`}/></div></div></section><section className="container-page section-space"><div className="mb-8 border-b hairline pb-4 text-sm text-stone-600"><strong className="text-stone-900">{items.length}</strong> objets dans cette collection</div><ProductGrid products={items}/></section></>}

@@ -1,0 +1,11 @@
+import Link from "next/link";
+import { ArrowDown, CalendarRange, Layers3 } from "lucide-react";
+import { CatalogExplorer } from "@/components/catalogue/catalog-explorer";
+import { Breadcrumb } from "@/components/ui/breadcrumb";
+import { DemoArtwork } from "@/components/ui/demo-artwork";
+import type { CatalogCategory, CatalogProduct } from "@/types/catalog";
+
+export function CategoryLanding({ category, products, initial }: { category: CatalogCategory; products: readonly CatalogProduct[]; initial?: Record<string,string|undefined> }) {
+  const kind = category.slug === "ceramique" ? "CERAMIC" : category.slug === "revues-auto-moto" ? "MAGAZINE" : "POSTCARD";
+  return <><section className="border-b hairline bg-[#e9dfd0]/45"><div className="container-page py-8"><Breadcrumb items={[{label:category.name}]} /><div className="grid items-center gap-8 py-10 lg:grid-cols-[1fr_.72fr] lg:py-14"><div><p className="eyebrow text-[#a35f3f]">{category.eyebrow}</p><h1 className="mt-5 max-w-4xl text-balance text-5xl leading-[1.02] sm:text-7xl">{category.name}</h1><p className="mt-6 max-w-2xl text-base leading-7 text-stone-600 sm:text-lg">{category.description}</p><div className="mt-8 flex flex-wrap gap-3 text-sm"><span className="inline-flex items-center gap-2 rounded-full border hairline bg-white/60 px-4 py-2"><Layers3 size={15}/>{category.subcategories.length} familles</span><span className="inline-flex items-center gap-2 rounded-full border hairline bg-white/60 px-4 py-2"><CalendarRange size={15}/>{category.periods.length} périodes</span><a href="#objets" className="btn-primary"><ArrowDown size={16}/>Voir les objets</a></div></div><DemoArtwork kind={kind} title={category.name} className="aspect-[5/3] rounded-[1.75rem] lg:aspect-[4/3]"/></div><div className="flex gap-2 overflow-x-auto border-t hairline py-5" aria-label="Sous-catégories">{category.subcategories.slice(0,12).map((sub) => <Link key={sub.id} className="shrink-0 rounded-full border hairline bg-white/60 px-4 py-2 text-xs font-semibold hover:border-[#173f35]" href={`/${category.slug}/${sub.slug}`}>{sub.name}</Link>)}</div></div></section><section id="objets" className="container-page py-12 sm:py-16"><CatalogExplorer products={products} scopeCategory={category.slug} initial={initial}/></section></>;
+}

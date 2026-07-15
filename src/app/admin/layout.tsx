@@ -1,0 +1,4 @@
+import { redirect } from "next/navigation";
+import { AdminNav } from "@/components/admin/admin-nav";
+import { getSession } from "@/lib/server/session";
+export default async function AdminLayout({children}:{children:React.ReactNode}){const session=await getSession();if(!session||session.role!=="ADMIN")redirect("/connexion?callbackUrl=/admin");return <section className="container-page py-8 sm:py-12"><div className="mb-7 flex items-center justify-between"><div><p className="eyebrow text-[#a35f3f]">Espace sécurisé</p><p className="mt-2 text-sm text-stone-500">Connecté en tant que {session.email}</p></div><span className="rounded-full bg-[#173f35] px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white">Administrateur</span></div><div className="grid items-start gap-8 lg:grid-cols-[14.5rem_1fr]"><AdminNav/><div className="min-w-0">{children}</div></div></section>}

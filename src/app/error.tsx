@@ -1,0 +1,3 @@
+"use client";
+import { RotateCcw } from "lucide-react";
+export default function ErrorPage({ reset }: { error: Error & { digest?: string }; reset: () => void }) { return <section className="container-page grid min-h-[60vh] place-items-center py-20 text-center"><div><p className="eyebrow text-[#a35f3f]">Un imprévu est survenu</p><h1 className="mt-4 text-5xl">La page n’a pas pu être chargée.</h1><p className="mx-auto mt-4 max-w-lg text-stone-600">Vos données sont conservées. Vous pouvez relancer l’affichage.</p><button className="btn-primary mt-7" onClick={reset}><RotateCcw size={17}/>Réessayer</button></div></section>; }

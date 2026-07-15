@@ -1,0 +1,3 @@
+import Link from "next/link";
+import { Search } from "lucide-react";
+export default function NotFound() { return <section className="container-page grid min-h-[65vh] place-items-center py-20 text-center"><div><p className="eyebrow text-[#a35f3f]">Erreur 404</p><h1 className="mt-5 text-6xl sm:text-8xl">Objet introuvable</h1><p className="mx-auto mt-5 max-w-lg leading-7 text-stone-600">Cette pièce a peut-être changé de rayon, ou la page n’existe plus.</p><div className="mt-8 flex flex-wrap justify-center gap-3"><Link className="btn-primary" href="/catalogue"><Search size={17} /> Parcourir le catalogue</Link><Link className="btn-secondary" href="/">Retour à l’accueil</Link></div></div></section>; }
